@@ -1,28 +1,28 @@
--- KEÞÝFSEL VERÝ ANALÝZÝ (EDA) 
+-- KESIFSEL VERI ANALIZI (EDA) 
 
--- Toplam sipariþ sayýsý 
+-- Toplam siparis sayÄ±sÄ±
 SELECT COUNT(*) AS Total_Orders FROM pizza_sales; 
 
--- Restoranlara göre sipariþ sayýsý 
+-- Restoranlara gÃ¶re siparis sayÄ±sÄ±
 SELECT Restaurant_Name, COUNT(*) AS Order_Count
 FROM pizza_sales
 GROUP BY Restaurant_Name
 ORDER BY Order_Count DESC; 
 
---Konuma göre sipariþ sayýsý 
+--Konuma gÃ¶re siparis sayÄ±sÄ± 
 SELECT Location_Name, COUNT(*) AS Location_Count
 FROM pizza_sales 
 GROUP BY Location_Name
 ORDER BY Location_Count DESC;
 
--- Konuma göre en çok sipariþ veren 5 þehir 
+-- Konuma gÃ¶re en Ã§ok siparis verilen 5 sehir 
 SELECT TOP 5
 Location_Name, COUNT(*) AS Location_Count
 FROM pizza_sales 
 GROUP BY Location_Name
 ORDER BY Location_Count DESC; 
 
--- Sipariþ saatlerine göre sipariþ sayýsý
+-- Siparis saatlerine gÃ¶re siparis sayisi
 SELECT 
 FORMAT(Order_Time, 'HH:mm')AS Order_Hour,
 COUNT(*) AS Order_Time_Count
@@ -30,42 +30,42 @@ FROM pizza_sales
 GROUP BY FORMAT(Order_Time, 'HH:mm')
 ORDER BY Order_Time_Count DESC;
 
--- Ortalama, minimum, maksimum teslimat süresi (dakika)
+-- Ortalama, minimum, maksimum teslimat sÃ¼resi (dakika)
 SELECT
 AVG(Delivery_Duration_min) AS  Avg_Delivery_Duration_min, -- 29 dakika
 MIN(Delivery_Duration_min) AS Min_Delivery_Duration_min, -- 15 dakika 
 MAX(Delivery_Duration_min) AS Max_Delivery_Duration_min -- 50 dakika 
 FROM pizza_sales;
 
--- Pizza boyutlarýna göre sipariþ sayýsý
+-- Pizza boyutlarina gÃ¶re sipariÃ¾ sayisi
 SELECT Pizza_Size, COUNT(*) AS Pizza_Size_Count
 FROM pizza_sales
 GROUP BY Pizza_Size
 ORDER BY Pizza_Size_Count DESC; 
 
--- Pizza türlerine göre sipariþ sayýsý 
+-- Pizza tÃ¼rlerine gÃ¶re siparis sayisi
 SELECT Pizza_Type, COUNT(*) AS Pizza_Type_Count
 FROM pizza_sales 
 GROUP BY Pizza_Type
 ORDER BY Pizza_Type_Count DESC; 
 
--- Trafik seviyesine göre ortalama teslimat süresi 
+-- Trafik seviyesine gÃ¶re ortalama teslimat sÃ¼resi 
 SELECT Traffic_Level, AVG(Delivery_Duration_min) AS Avg_Delivery_Duration
 FROM pizza_sales
 GROUP BY Traffic_Level 
 
--- Pizza boyutuna göre ortalama teslimat süresi 
+-- Pizza boyutuna gÃ¶re ortalama teslimat sÃ¼resi 
 SELECT Pizza_Size, AVG(Delivery_Duration_min) Avg_Pizza_Size_Delivery_Duration
 FROM pizza_sales 
 GROUP BY Pizza_Size;
 
--- Restoranlara göre ortalama teslimat süresi
+-- Restoranlara gÃ¶re ortalama teslimat sÃ¼resi
 SELECT Restaurant_Name, AVG(Delivery_Duration_min) AS Avg_Restaurant_Delivery_Duration
 FROM pizza_sales
 GROUP BY Restaurant_Name
 ORDER BY Avg_Restaurant_Delivery_Duration 
 
--- Sipariþ saatine göre ortalama teslimat süreleri 
+-- Siparis saatine gÃ¶re ortalama teslimat sÃ¼releri 
 SELECT 
 DATEPART(HOUR, Order_Time) AS Order_Hour,
 AVG(Delivery_Duration_min) AS Avg_Order_Delivery_Duration 
@@ -73,7 +73,7 @@ FROM pizza_sales
 GROUP BY DATEPART(HOUR, Order_Time)
 ORDER BY Order_Hour DESC; 
 
--- Verilen sipariþler (Haftanýn  günlerine göre)
+-- Verilen siparisler (Haftanin  gÃ¼nlerine gÃ¶re)
 SELECT
 DATENAME(WEEKDAY, Order_Time) AS Weekday_Name,
 DATEPART(WEEKDAY, Order_Time) AS Weekday_Number,
@@ -84,19 +84,19 @@ DATENAME(WEEKDAY, Order_Time),
 DATEPART(WEEKDAY, Order_Time)
 ORDER BY Order_Count DESC;
 
--- Ödeme yöntemine göre sipariþ sayýsý
+-- Ã–deme yÃ¶ntemine gÃ¶re siparis sayisi
 SELECT Payment_Method, COUNT(*) AS Payment_Method_Count
 FROM pizza_sales
 GROUP BY Payment_Method
 ORDER BY Payment_Method_Count DESC; 
 
--- Ödeme kategorisine göre sipariþ sayýsý 
+-- Ã–deme kategorisine gÃ¶re siparis sayisi
 SELECT Payment_Category, COUNT(*) AS Payment_Category_Count
 FROM pizza_sales
 GROUP BY Payment_Category
 ORDER BY Payment_Category_Count DESC; 
 
--- Restoran bazýnda saat dilimlerine göre ortalama teslimat süreleri 
+-- Restoran bazÃ½nda saat dilimlerine gÃ¶re ortalama teslimat sÃ¼releri 
 SELECT 
 Restaurant_Name,
 DATEPART(HOUR, Order_Time) AS HOUR,
@@ -110,7 +110,7 @@ ORDER BY
 Restaurant_Name,
 Hour;
 
--- 'Small' ve 'XL' pizza boyutlarýnýn Trafik yoðunluðuna göre ortalama teslimat süreleri 
+-- 'Small' ve 'XL' pizza boyutlarinin trafik yogunluguna gÃ¶re ortalama teslimat sÃ¼releri 
 SELECT
 Traffic_Level,
 AVG(CASE WHEN Pizza_Size = 'Small' THEN Delivery_Duration_min END) AS Small_Avg_Duration,
